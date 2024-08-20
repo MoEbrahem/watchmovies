@@ -65,6 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeTab(),
     const SearchTap(),
     const BrowseTap(),
-    const WatchListTap()
+    WatchListTap()
   ];
 }
