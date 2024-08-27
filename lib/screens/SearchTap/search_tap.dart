@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:movies_app/constants/color.dart';
+import 'package:movies_app/screens/SearchTap/config_api/api_service.dart';
 import 'package:movies_app/screens/SearchTap/models/movie.dart';
-import 'package:movies_app/screens/SearchTap/services/api_service.dart';
-import 'package:movies_app/widget/MovieCard.dart';
+import 'package:movies_app/widget/MovieCard/MovieCard.dart';
 
 class SearchTap extends StatelessWidget {
   @override
@@ -66,9 +66,7 @@ class SearchTap extends StatelessWidget {
                       child: MovieCard(movie: movie),
                     );
                   },
-                  onSuggestionSelected: (Movie movie) {
-                    // Action when suggestion is selected
-                  },
+                  onSuggestionSelected: (Movie movie) {},
                   suggestionsBoxDecoration: SuggestionsBoxDecoration(
                     color: AppColors.primaryColor,
                     elevation: 0,

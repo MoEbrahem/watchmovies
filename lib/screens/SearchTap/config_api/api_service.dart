@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movies_app/screens/SearchTap/models/api_watch.dart';
+import 'package:movies_app/screens/SearchTap/models/api_search.dart';
 import 'package:movies_app/screens/SearchTap/models/movie.dart';
 
 Future<ApiWatch> addApiSettings() async {
@@ -16,6 +16,29 @@ Future<ApiWatch> addApiSettings() async {
   } else {
     throw Exception('Failed to load API settings');
   }
+}
+
+Future<Map<String, dynamic>> getMovieDetails(int movieId) async {
+  final apiKey = '62719ca1d744677169a0d4e9e0424a1f';
+  final url =
+      'https://api.themoviedb.org/3/movie/$movieId?api_key=$apiKey&append_to_response=credits';
+
+  final response = await http.get(Uri.parse(url));
+
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Failed to load movie details');
+  }
+}
+
+String getMovieCast(Map<String, dynamic> movieData) {
+  final List<dynamic> cast = movieData['credits']['cast'];
+  final actorNames = cast.take(3).map((actor) => actor['name']).join(', ');
+
+  return actorNames.isNotEmpty
+      ? actorNames
+      : 'Actors information not available';
 }
 
 Future<List<Movie>> importMovieFromApi({String query = ''}) async {
@@ -34,14 +57,11 @@ Future<List<Movie>> importMovieFromApi({String query = ''}) async {
     final baseUrl = settings.images?.secureBaseUrl ?? '';
     final posterSize = 'w500';
 
-    return moviesData
-        .map<Movie>((json) => Movie.fromJson(json, baseUrl, posterSize))
-        .toList();
+    return Future.wait(moviesData.map<Future<Movie>>((json) async {
+      final movieDetails = await getMovieDetails(json['id']);
+      return Movie.fromJson(movieDetails, baseUrl, posterSize);
+    }).toList());
   } else {
     throw Exception('Failed to load movies');
   }
-}
-
-void searchForMovies(String query) async {
-  final movies = await importMovieFromApi(query: query);
 }

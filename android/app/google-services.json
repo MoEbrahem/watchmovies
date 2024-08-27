@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "996481269411",
-    "project_id": "watchmovies-70c92",
-    "storage_bucket": "watchmovies-70c92.appspot.com"
+    "project_number": "205860268141",
+    "project_id": "movies-app-2a577",
+    "storage_bucket": "movies-app-2a577.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:996481269411:android:d879567442dfbf1bf40916",
+        "mobilesdk_app_id": "1:205860268141:android:08d6bc21ed5953d6177764",
         "android_client_info": {
           "package_name": "com.example.movies_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCtT2pAPYTNBeMQfUV4Saauu5WudP3SU_c"
+          "current_key": "AIzaSyAWPigFUSbiGIoLnDx0NwUfKIUJgXc9Mt4"
         }
       ],
       "services": {
