@@ -8,7 +8,7 @@ class ItemsCategoryModel {
   String? errMessage;
 
   ItemsCategoryModel(
-      {this.page, this.results, this.totalPages, this.totalResults});
+      {this.page, this.results, this.totalPages, this.totalResults,this.errMessage,this.status_code,this.success,});
 
   ItemsCategoryModel.fromJson(Map<String, dynamic> json) {
     page = json['page'];

@@ -41,7 +41,7 @@ class _Movie_contentState extends State<Movie_content> {
         Expanded(
           flex: 1,
           child: BookMarkImage(
-            selectedToWatchList: false,
+            // selectedToWatchList: false,
             imageHeight: height * 0.23,
             imagewidth: width * 0.34,
             imagepath: widget.movieDetails.posterPath!,
@@ -73,8 +73,7 @@ class _Movie_contentState extends State<Movie_content> {
                           color: Colors.transparent,
                           border: Border.all(color: AppColors.grayColor)),
                       child: Text(
-                        widget.movieDetails.genres![index].name! 
-                        ,
+                        widget.movieDetails.genres![index].name!,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                     );
