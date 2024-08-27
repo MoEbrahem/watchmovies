@@ -78,8 +78,8 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                     ),
                                   ),
                                   Positioned(
-                                    right: 110,
-                                    bottom: 165,
+                                  right: MediaQuery.of(context).size.width*0.26,
+                                    bottom: MediaQuery.of(context).size.height*0.19,
                                     child: IconButton(
                                       icon: Image.asset(
                                           "assets/images/bookmark.png",

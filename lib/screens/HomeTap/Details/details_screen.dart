@@ -5,6 +5,7 @@ import 'package:movies_app/data/HomeTapAPI/model/home_tap_api.dart';
 import 'package:movies_app/screens/HomeTap/home_tap.dart';
 import 'package:movies_app/widgets/HomeTap/MovieSlider/up_coming_slider.dart';
 
+
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.snapshot, required this.movie});
 
@@ -36,9 +37,10 @@ class DetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Image.network(
-              filterQuality: FilterQuality.high,
-              "${ApiConstants.imagePath}${movie.backDropPath}",
-              fit: BoxFit.cover),
+            filterQuality: FilterQuality.high,
+            "${ApiConstants.imagePath}${movie.backDropPath}",
+            fit: BoxFit.cover,
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -50,75 +52,82 @@ class DetailsScreen extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Stack(
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: Image.network(
-                        filterQuality: FilterQuality.high,
-                        "${ApiConstants.imagePath}${movie.posterPath}",
-                        fit: BoxFit.fill,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.width * 0.3,
+                            child: Image.network(
+                              filterQuality: FilterQuality.high,
+                              "${ApiConstants.imagePath}${movie.posterPath}",
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 15,
+                      left: 10,
+                      right: 10,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 140),
+                            child: Column(
+                              children: [
+                                Text(
+                                  movie.title,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 140),
+                            child: Column(
+                              children: [
+                                Text(
+                                  movie.releaseDate,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      top: 5,
+                      right: 5,
+                      left: 150,
+                      child: Text(
+                        movie.overView,
+                        style: Theme.of(context).textTheme.bodySmall,
+                        maxLines: 7,
                       ),
                     ),
                   ],
                 ),
-              ),
-              Positioned(
-                  bottom: 15,
-                  left: 10,
-                  right: 10,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 140,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(movie.title,
-                                style: Theme.of(context).textTheme.titleMedium),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 140,
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              movie.releaseDate,
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              Positioned(
-                  top: 5,
-                  right: 5,
-                  left: 150,
-                  child: Text(
-                    movie.overView,
-                    style: Theme.of(context).textTheme.bodySmall,
-                    maxLines: 7,
-                  ))
-            ],
+                Expanded(
+                  child:
+                      UpComingSlider(label: "Recommended", snapshot: snapshot),
+                ),
+              ],
+            ),
           ),
-          Column(
-            children: [
-              UpComingSlider(label: "Recommended", snapshot: snapshot),
-            ],
-          )
         ],
       ),
     );

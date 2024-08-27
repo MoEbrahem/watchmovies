@@ -89,8 +89,14 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                                           ),
                                         ),
                                         Positioned(
-                                          right: 110,
-                                          bottom: 155,
+                                                 right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.26,
+                                          bottom: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.177,
                                           child: IconButton(
                                             icon: Image.asset(
                                               "assets/images/bookmark.png",
