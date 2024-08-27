@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
+import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
+import 'package:movies_app/screens/HomeTap/Details/details_screen.dart';
 
-class upComingSlider extends StatelessWidget {
+class UpComingSlider extends StatefulWidget {
   String label;
-  String image;
 
-  upComingSlider({super.key, required this.label, required this.image});
+  UpComingSlider({super.key, required this.label, required this.snapshot});
+
+  final AsyncSnapshot snapshot;
+
+  @override
+  State<UpComingSlider> createState() => _UpComingSliderState();
+}
+
+class _UpComingSliderState extends State<UpComingSlider> {
+  final Set<int> _selectedIndices = {};
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.3,
           width: MediaQuery.of(context).size.width * 0.35,
@@ -25,7 +33,7 @@ class upComingSlider extends StatelessWidget {
               child: Stack(
                 children: [
                   Text(
-                    label,
+                    widget.label,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Padding(
@@ -33,8 +41,10 @@ class upComingSlider extends StatelessWidget {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
-                      itemCount: 20,
-                      itemBuilder: (contex, Index) {
+                      itemCount: widget.snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        final isSelected = _selectedIndices.contains(index);
+
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ClipRRect(
@@ -42,23 +52,51 @@ class upComingSlider extends StatelessWidget {
                             child: SizedBox(
                               child: Stack(
                                 children: [
-                                  Container(
-                                    color: Colors.white,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.24,
-                                    width: MediaQuery.of(context).size.width *
-                                        0.35,
-                                    child: Image.asset(
-                                      image,
-                                      fit: BoxFit.fill,
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailsScreen(
+                                                    snapshot: widget.snapshot,
+                                                    movie: widget
+                                                        .snapshot.data[index],
+                                                  )));
+                                    },
+                                    child: Container(
+                                      color: Colors.white,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.24,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.35,
+                                      child: Image.network(
+                                        filterQuality: FilterQuality.high,
+                                        "${ApiConstants.imagePath}${widget.snapshot.data![index].posterPath!}",
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
-                                  Image.asset("assets/images/bookmark.png",
-                                      color: AppColors.grayColor),
-                                  const Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                  )
+                                  Positioned(
+                                    right: 110,
+                                    bottom: 165,
+                                    child: IconButton(
+                                      icon: Image.asset(
+                                          "assets/images/bookmark.png",
+                                          color: isSelected
+                                              ? AppColors.goldColor
+                                              : AppColors.grayColor),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            _selectedIndices.remove(index);
+                                          } else {
+                                            _selectedIndices.add(index);
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
