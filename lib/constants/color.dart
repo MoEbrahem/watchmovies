@@ -7,4 +7,6 @@ class AppColors {
   static const Color graylightColor = Color(0xff282A28);
   static const Color describtionColor = Color(0xffCBCBCB);
   static const Color goldColor = Color(0xffFFBB3B);
+  static const Color bookMarkColor = Color(0xff514F4F);
+  static const Color recommendedContainer = Color(0xff343534);
 }

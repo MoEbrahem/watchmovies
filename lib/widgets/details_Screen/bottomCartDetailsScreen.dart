@@ -29,7 +29,7 @@ class BottomCartDetailsScreen extends StatelessWidget {
           children: [
             BookMarkImage(
               imagepath: movieDetails.posterPath!,
-              selectedToWatchList: false,
+              // selectedToWatchList: false,
               imageHeight: height * 0.16,
               imagewidth: double.infinity,
             ),

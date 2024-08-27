@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
-import 'package:movies_app/screens/HomeTap/Details/details_screen.dart';
+import 'package:movies_app/data/Models/home_tap_api.dart';
+import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
 class UpComingSlider extends StatefulWidget {
   String label;
+  List<Movie> listMovies;
 
-  UpComingSlider({super.key, required this.label, required this.snapshot});
-
-  final AsyncSnapshot snapshot;
+  UpComingSlider({
+    super.key,
+    required this.label,
+    required this.listMovies,
+  });
 
   @override
   State<UpComingSlider> createState() => _UpComingSliderState();
@@ -19,13 +23,15 @@ class _UpComingSliderState extends State<UpComingSlider> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const SizedBox(height: 20),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
-          width: MediaQuery.of(context).size.width * 0.35,
+          height: height * 0.3,
+          width: width * 0.35,
           child: Container(
             color: AppColors.graylightColor,
             child: Padding(
@@ -41,7 +47,7 @@ class _UpComingSliderState extends State<UpComingSlider> {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
-                      itemCount: widget.snapshot.data!.length,
+                      itemCount: widget.listMovies.length,
                       itemBuilder: (context, index) {
                         final isSelected = _selectedIndices.contains(index);
 
@@ -55,37 +61,78 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                   InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailsScreen(
-                                                    snapshot: widget.snapshot,
-                                                    movie: widget
-                                                        .snapshot.data[index],
-                                                  )));
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailsScreenView(
+                                            movieId:
+                                                widget.listMovies[index].id,
+                                            movieTitle:
+                                                widget.listMovies[index].title,
+                                          ),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       color: Colors.white,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.24,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.35,
+                                      height: height * 0.24,
+                                      width: width * 0.35,
                                       child: Image.network(
                                         filterQuality: FilterQuality.high,
-                                        "${ApiConstants.imagePath}${widget.snapshot.data![index].posterPath!}",
+                                        "${ApiConstants.imagePath}${widget.listMovies[index].posterPath}",
                                         fit: BoxFit.fill,
                                       ),
                                     ),
                                   ),
                                   Positioned(
-                                    right: 110,
-                                    bottom: 165,
+                                    top: -11,
+                                    right: width * 0.23,
+                                    bottom: width * 0.339,
+                                    left: -19,
                                     child: IconButton(
-                                      icon: Image.asset(
-                                          "assets/images/bookmark.png",
-                                          color: isSelected
-                                              ? AppColors.goldColor
-                                              : AppColors.grayColor),
+                                      icon: isSelected
+                                          ? Stack(
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/bookmark.png",
+                                                  color: AppColors.goldColor,
+                                                  fit: BoxFit.cover,
+                                                  width: width * 0.069,
+                                                  height: height * 0.05,
+                                                ),
+                                                Positioned(
+                                                  top: width*0.011,
+                                                  left: width*0.009,
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: AppColors.whiteColor,
+                                                    size: width * 0.055,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          : Stack(
+                                              children: [
+                                                Positioned(
+                                                  left: 1,
+                                                  bottom: -1,
+                                                  child: Icon(
+                                                    Icons.bookmark,
+                                                    color:
+                                                        AppColors.bookMarkColor,
+                                                    size: width * 0.127,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: width * 0.018,
+                                                  left: width * 0.038,
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: AppColors.whiteColor,
+                                                    size: width * 0.055,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                       onPressed: () {
                                         setState(() {
                                           if (isSelected) {

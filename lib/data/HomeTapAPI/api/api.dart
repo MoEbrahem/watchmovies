@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
-import 'package:movies_app/data/HomeTapAPI/model/home_tap_api.dart';
+import 'package:movies_app/data/Models/home_tap_api.dart';
 
 class ApiManager {
   static const _popular =
