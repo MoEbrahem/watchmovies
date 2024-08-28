@@ -1,23 +1,9 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/my_theme_data.dart';
 import 'package:movies_app/screens/homeScreen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-          options: FirebaseOptions(
-              apiKey: "AIzaSyAWPigFUSbiGIoLnDx0NwUfKIUJgXc9Mt4",
-              appId: "com.example.movies_app",
-              messagingSenderId: "205860268141",
-              projectId: "movies-app-2a577"))
-      : await Firebase.initializeApp();
-  await FirebaseFirestore.instance.disableNetwork();
-  runApp(MyApp());
+void main() {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
