@@ -5,7 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../constants/color.dart';
 import '../../data/Models/home_tap_api.dart';
 import '../../widgets/watchlist/WatchMovieCard.dart';
-import 'firebase/firebase.dart';
+import '../../data/watchLater/firebase/firebase.dart';
 
 class WatchListTap extends StatefulWidget {
   @override

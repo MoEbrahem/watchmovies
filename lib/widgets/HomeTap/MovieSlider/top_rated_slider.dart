@@ -4,7 +4,7 @@ import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
-import '../../../screens/WatchListTap/firebase/firebase.dart';
+import '../../../data/watchLater/firebase/firebase.dart';
 
 class TopRatedSlider extends StatefulWidget {
   final String label;

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../data/Models/home_tap_api.dart';
+import '../../Models/home_tap_api.dart';
 
 Future<void> addMovieToWatchList(Movie movie) async {
   try {

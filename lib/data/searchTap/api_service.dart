@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movies_app/data/Models/models/api_watch.dart';
 import 'package:movies_app/data/Models/models/movie.dart';
+import 'package:movies_app/data/Models/searchModel/api_watch.dart';
 
 Future<ApiWatch> addApiSettings() async {
   const  apiKey = '62719ca1d744677169a0d4e9e0424a1f';
