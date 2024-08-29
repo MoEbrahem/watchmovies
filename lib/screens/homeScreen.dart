@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List<Widget> tabs = [
-    const HomeTab(),
+     HomeTab(),
     SearchTap(),
     ChangeNotifierProvider(
       create: (context) => BrowseCategoryViewModel(),

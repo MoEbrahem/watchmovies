@@ -3,13 +3,16 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/screens/SearchTap/models/movie.dart';
 import 'package:movies_app/screens/SearchTap/services/api_service.dart';
+import '../../widgets/SearchTab/SearchMovieCard.dart';
 import 'package:movies_app/widgets/watchlist/MovieCard.dart';
+
 
 class SearchTap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
@@ -25,7 +28,7 @@ class SearchTap extends StatelessWidget {
                     maxWidth: width * 0.95,
                   ),
                   child: TypeAheadField<Movie>(
-                  
+
                     textFieldConfiguration: TextFieldConfiguration(
                       style: const TextStyle(color: AppColors.whiteColor),
                       cursorColor: AppColors.whiteColor,
@@ -66,9 +69,50 @@ class SearchTap extends StatelessWidget {
                     itemBuilder: (context, Movie movie) {
                       return MovieCard(movie: movie);
                     },
+
+                    onSuggestionSelected: (Movie movie) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            backgroundColor: AppColors.primaryColor,
+                            title: Text(
+                              movie.title,
+                              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.whiteColor),
+                            ),
+                            content: Text(
+                              'Would you like to add this movie to your watchlist?',
+                              style: TextStyle(color: AppColors.whiteColor),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                              
+                                  Navigator.of(context).pop(); 
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("${movie.title} added to watchlist"),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                },
+                                child: Text('Add to Watchlist', style: TextStyle(color: AppColors.goldColor)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop(); 
+                                },
+                                child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor)),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+
                     
                     onSuggestionSelected: (Movie movie) {
-                      // Action when suggestion is selected
+                     
+
                     },
                     suggestionsBoxDecoration: SuggestionsBoxDecoration(
                       color: AppColors.primaryColor,

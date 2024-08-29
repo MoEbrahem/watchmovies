@@ -31,7 +31,7 @@ class HomeTabState extends State<HomeTab> {
     double height =MediaQuery.of(context).size.height;
     double width =MediaQuery.of(context).size.width;
     return Scaffold(
-      
+
       backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: EdgeInsets.all(width*0.01),

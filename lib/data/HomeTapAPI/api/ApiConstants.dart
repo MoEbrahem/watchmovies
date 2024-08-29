@@ -5,4 +5,5 @@ class ApiConstants {
   static const String upComingMovie = "/3/movie/upcoming";
   static const String topRatedMovie = "/3/movie/top_rated";
   static const String imagePath = "https://image.tmdb.org/t/p/w500";
+
 }
