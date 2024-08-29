@@ -6,8 +6,6 @@ import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
 import '../../../screens/WatchListTap/firebase/firebase.dart';
 
-
-
 class TopRatedSlider extends StatefulWidget {
   final String label;
   List<Movie> listMovies;
@@ -26,7 +24,10 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
   final Set<int> selectedIndices = {};
 
   @override
-
+  void initState() {
+    super.initState();
+    _loadInitialData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +179,7 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -194,16 +195,16 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
     );
   }
 
-  void initState() {
-    super.initState();
-    loadInitialData();
-  }
-
-  Future<void> loadInitialData() async {
-    final allMovies = await getMoviesFromWatchList().first;
-    setState(() {
-      selectedIndices.addAll(allMovies.map((movie) => movie.id));
-    });
+  Future<void> _loadInitialData() async {
+    for (int index = 0; index < widget.listMovies.length; index++) {
+      bool isInWatchlist =
+          await isMovieInWatchList(widget.listMovies[index].title);
+      if (isInWatchlist) {
+        setState(() {
+          selectedIndices.add(widget.listMovies[index].id);
+        });
+      }
+    }
   }
 
   Future<void> _toggleWatchlist(int index, Movie movie) async {

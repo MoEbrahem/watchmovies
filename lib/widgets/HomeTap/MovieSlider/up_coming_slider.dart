@@ -6,7 +6,6 @@ import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
 import '../../../screens/WatchListTap/firebase/firebase.dart';
 
-
 class UpComingSlider extends StatefulWidget {
   final String label;
   final List<Movie> listMovies;
@@ -23,6 +22,12 @@ class UpComingSlider extends StatefulWidget {
 
 class _UpComingSliderState extends State<UpComingSlider> {
   final Set<int> selectedIndices = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _checkMoviesInWatchList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +73,11 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DetailsScreenView(
-                                                movieId:
+                                            movieId:
                                                 widget.listMovies[index].id,
-                                                movieTitle:
+                                            movieTitle:
                                                 widget.listMovies[index].title,
-                                              ),
+                                          ),
                                         ),
                                       );
                                     },
@@ -121,9 +126,9 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                             bottom: -1,
                                             child: Icon(
                                               Icons.bookmark,
-                                              color:
-                                              AppColors.bookMarkColor,
-                                              size: width * 0.127,
+                                                    color:
+                                                        AppColors.bookMarkColor,
+                                                    size: width * 0.127,
                                             ),
                                           ),
                                         ],
@@ -167,5 +172,17 @@ class _UpComingSliderState extends State<UpComingSlider> {
         ),
       ],
     );
+  }
+
+  Future<void> _checkMoviesInWatchList() async {
+    for (int index = 0; index < widget.listMovies.length; index++) {
+      bool isInWatchlist =
+          await isMovieInWatchList(widget.listMovies[index].title);
+      if (isInWatchlist) {
+        setState(() {
+          selectedIndices.add(index);
+        });
+      }
+    }
   }
 }

@@ -1,12 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/viewModel/detailsScreen.dart';
 import 'package:movies_app/widgets/details_Screen/TopVideoTrailer.dart';
 import 'package:movies_app/widgets/details_Screen/bottomCartDetailsScreen.dart';
 import 'package:movies_app/widgets/details_Screen/movieUpperContent.dart';
+import 'package:provider/provider.dart';
 
 class DetailsScreenView extends StatefulWidget {
   int movieId;
