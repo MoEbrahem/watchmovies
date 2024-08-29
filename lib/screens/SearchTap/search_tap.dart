@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:movies_app/constants/color.dart';
-import 'package:movies_app/screens/SearchTap/models/movie.dart';
-import 'package:movies_app/screens/SearchTap/services/api_service.dart';
+import 'package:movies_app/data/Models/models/movie.dart';
+import 'package:movies_app/data/searchTap/api_service.dart';
+import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 import '../../widgets/SearchTab/SearchMovieCard.dart';
-import 'package:movies_app/widgets/watchlist/MovieCard.dart';
-
 
 class SearchTap extends StatelessWidget {
+  const SearchTap({super.key});
+
+  @override
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -28,7 +30,6 @@ class SearchTap extends StatelessWidget {
                     maxWidth: width * 0.95,
                   ),
                   child: TypeAheadField<Movie>(
-
                     textFieldConfiguration: TextFieldConfiguration(
                       style: const TextStyle(color: AppColors.whiteColor),
                       cursorColor: AppColors.whiteColor,
@@ -62,57 +63,56 @@ class SearchTap extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     suggestionsCallback: (query) async {
                       return await importMovieFromApi(query: query);
                     },
                     itemBuilder: (context, Movie movie) {
                       return MovieCard(movie: movie);
                     },
-
                     onSuggestionSelected: (Movie movie) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: AppColors.primaryColor,
-                            title: Text(
-                              movie.title,
-                              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.whiteColor),
-                            ),
-                            content: Text(
-                              'Would you like to add this movie to your watchlist?',
-                              style: TextStyle(color: AppColors.whiteColor),
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {
-                              
-                                  Navigator.of(context).pop(); 
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("${movie.title} added to watchlist"),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                },
-                                child: Text('Add to Watchlist', style: TextStyle(color: AppColors.goldColor)),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop(); 
-                                },
-                                child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor)),
-                              ),
-                            ],
-                          );
-                        },
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DetailsScreenView(
+                              movieId: movie.id, movieTitle: movie.title),
+                        ),
                       );
-
-                    
-                    onSuggestionSelected: (Movie movie) {
-                     
-
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (BuildContext context) {
+                      //     return AlertDialog(
+                      //       backgroundColor: AppColors.primaryColor,
+                      //       title: Text(
+                      //         movie.title,
+                      //         style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.whiteColor),
+                      //       ),
+                      //       content: Text(
+                      //         'Would you like to add this movie to your watchlist?',
+                      //         style: TextStyle(color: AppColors.whiteColor),
+                      //       ),
+                      //       actions: <Widget>[
+                      //         TextButton(
+                      //           onPressed: () {
+                      //             // قم بإضافة الفيلم إلى قائمة المشاهدة هنا
+                      //             Navigator.of(context).pop(); // اغلق النافذة المنبثقة
+                      //             ScaffoldMessenger.of(context).showSnackBar(
+                      //               SnackBar(
+                      //                 content: Text("${movie.title} added to watchlist"),
+                      //                 backgroundColor: Colors.green,
+                      //               ),
+                      //             );
+                      //           },
+                      //           child: Text('Add to Watchlist', style: TextStyle(color: AppColors.goldColor)),
+                      //         ),
+                      //         TextButton(
+                      //           onPressed: () {
+                      //             Navigator.of(context).pop(); // اغلق النافذة المنبثقة
+                      //           },
+                      //           child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor)),
+                      //         ),
+                      //       ],
+                      //     );
+                      //   },
+                      // );
                     },
                     suggestionsBoxDecoration: SuggestionsBoxDecoration(
                       color: AppColors.primaryColor,
@@ -129,8 +129,7 @@ class SearchTap extends StatelessWidget {
                 padding: EdgeInsets.only(
                   top: height * 0.3,
                 ),
-                margin: EdgeInsets.only(
-                    bottom: height * 0.02),
+                margin: EdgeInsets.only(bottom: height * 0.02),
                 child: ImageIcon(
                   const AssetImage("assets/images/Icon_movies.png"),
                   size: height * 0.15,

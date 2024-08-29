@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 
+
 class BookMarkImage extends StatefulWidget {
   double imageHeight;
   double imagewidth;
@@ -26,12 +27,15 @@ class _BookMarkImageState extends State<BookMarkImage> {
     double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        Image.network(
-          'https://image.tmdb.org/t/p/w500${widget.imagepath}',
-          fit: BoxFit.fill,
-          height: widget.imageHeight,
-          width: widget.imagewidth,
-        ),
+        widget.imagepath == ''
+            ? Image.network(
+                'https://kennyleeholmes.com/wp-content/uploads/2017/09/no-image-available.png',fit: BoxFit.fill,width: double.infinity,height: width*0.32,)
+            : Image.network(
+                'https://image.tmdb.org/t/p/w500${widget.imagepath}',
+                fit: BoxFit.fill,
+                height: widget.imageHeight,
+                width: widget.imagewidth,
+              ),
         Positioned(
           top: -14,
           left: -19,
@@ -44,6 +48,15 @@ class _BookMarkImageState extends State<BookMarkImage> {
                   selectedToWatchList = false;
                 }
               });
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(selectedToWatchList
+                      ? "Movie removed from watchlist"
+                      : "Movie added to watchlist"),
+                ),
+              );
+              
             },
             icon: Stack(
               children: [
