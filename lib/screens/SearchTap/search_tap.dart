@@ -4,6 +4,8 @@ import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/screens/SearchTap/models/movie.dart';
 import 'package:movies_app/screens/SearchTap/services/api_service.dart';
 import '../../widgets/SearchTab/SearchMovieCard.dart';
+import 'package:movies_app/widgets/watchlist/MovieCard.dart';
+
 
 class SearchTap extends StatelessWidget {
   @override
@@ -26,6 +28,7 @@ class SearchTap extends StatelessWidget {
                     maxWidth: width * 0.95,
                   ),
                   child: TypeAheadField<Movie>(
+
                     textFieldConfiguration: TextFieldConfiguration(
                       style: const TextStyle(color: AppColors.whiteColor),
                       cursorColor: AppColors.whiteColor,
@@ -59,12 +62,14 @@ class SearchTap extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     suggestionsCallback: (query) async {
                       return await importMovieFromApi(query: query);
                     },
                     itemBuilder: (context, Movie movie) {
                       return MovieCard(movie: movie);
                     },
+
                     onSuggestionSelected: (Movie movie) {
                       showDialog(
                         context: context,
@@ -82,8 +87,8 @@ class SearchTap extends StatelessWidget {
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  // قم بإضافة الفيلم إلى قائمة المشاهدة هنا
-                                  Navigator.of(context).pop(); // اغلق النافذة المنبثقة
+                              
+                                  Navigator.of(context).pop(); 
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text("${movie.title} added to watchlist"),
@@ -95,7 +100,7 @@ class SearchTap extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(); // اغلق النافذة المنبثقة
+                                  Navigator.of(context).pop(); 
                                 },
                                 child: Text('Cancel', style: TextStyle(color: AppColors.whiteColor)),
                               ),
@@ -103,6 +108,11 @@ class SearchTap extends StatelessWidget {
                           );
                         },
                       );
+
+                    
+                    onSuggestionSelected: (Movie movie) {
+                     
+
                     },
                     suggestionsBoxDecoration: SuggestionsBoxDecoration(
                       color: AppColors.primaryColor,

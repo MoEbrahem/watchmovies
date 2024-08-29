@@ -4,12 +4,18 @@ import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
+
 import '../../../screens/WatchListTap/firebase/firebase.dart';
 
 
 class UpComingSlider extends StatefulWidget {
   final String label;
   final List<Movie> listMovies;
+
+class UpComingSlider extends StatefulWidget {
+  String label;
+  List<Movie> listMovies;
+
 
   UpComingSlider({
     super.key,
@@ -22,7 +28,11 @@ class UpComingSlider extends StatefulWidget {
 }
 
 class _UpComingSliderState extends State<UpComingSlider> {
+
   final Set<int> selectedIndices = {};
+
+  final Set<int> _selectedIndices = {};
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +63,11 @@ class _UpComingSliderState extends State<UpComingSlider> {
                       physics: const BouncingScrollPhysics(),
                       itemCount: widget.listMovies.length,
                       itemBuilder: (context, index) {
+
                         final isSelected = selectedIndices.contains(index);
+
+                        final isSelected = _selectedIndices.contains(index);
+
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -68,11 +82,18 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DetailsScreenView(
+
                                                 movieId:
                                                 widget.listMovies[index].id,
                                                 movieTitle:
                                                 widget.listMovies[index].title,
                                               ),
+                                            movieId:
+                                                widget.listMovies[index].id,
+                                            movieTitle:
+                                                widget.listMovies[index].title,
+                                          ),
+
                                         ),
                                       );
                                     },
@@ -95,6 +116,7 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                     child: IconButton(
                                       icon: isSelected
                                           ? Stack(
+
                                         children: [
                                           Image.asset(
                                             "assets/images/bookmark.png",
@@ -149,6 +171,58 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                                 : "Movie added to watchlist"),
                                           ),
                                         );
+
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/bookmark.png",
+                                                  color: AppColors.goldColor,
+                                                  fit: BoxFit.cover,
+                                                  width: width * 0.069,
+                                                  height: height * 0.05,
+                                                ),
+                                                Positioned(
+                                                  top: width*0.011,
+                                                  left: width*0.009,
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: AppColors.whiteColor,
+                                                    size: width * 0.055,
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          : Stack(
+                                              children: [
+                                                Positioned(
+                                                  left: 1,
+                                                  bottom: -1,
+                                                  child: Icon(
+                                                    Icons.bookmark,
+                                                    color:
+                                                        AppColors.bookMarkColor,
+                                                    size: width * 0.127,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                  top: width * 0.018,
+                                                  left: width * 0.038,
+                                                  child: Icon(
+                                                    Icons.add,
+                                                    color: AppColors.whiteColor,
+                                                    size: width * 0.055,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            _selectedIndices.remove(index);
+                                          } else {
+                                            _selectedIndices.add(index);
+                                          }
+                                        });
+
                                       },
                                     ),
                                   ),
