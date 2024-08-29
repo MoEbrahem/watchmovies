@@ -4,10 +4,12 @@ import 'package:movies_app/constants/color.dart';
 
 class MyThemeData {
   static final ThemeData lightTheme = ThemeData(
+    scaffoldBackgroundColor: AppColors.primaryColor,
+    appBarTheme: AppBarTheme(color: AppColors.primaryColor,iconTheme: IconThemeData(color: AppColors.whiteColor)),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       elevation: 0,
 
-      unselectedItemColor: AppColors.graylightColor,
+      unselectedItemColor: AppColors.grayColor,
       type: BottomNavigationBarType.fixed,
       backgroundColor: AppColors.primaryColor,
       selectedItemColor: AppColors.goldColor,
@@ -42,7 +44,7 @@ class MyThemeData {
         fontFamily: "GothamBold",
         fontSize: 11,
         fontWeight: FontWeight.w500,
-        color: AppColors.graylightColor,
+        color: AppColors.grayColor,
       ),
       // Description
       bodySmall: const TextStyle(
