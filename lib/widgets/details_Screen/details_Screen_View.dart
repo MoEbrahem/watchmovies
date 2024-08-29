@@ -27,6 +27,7 @@ class _DetailsScreenViewState extends State<DetailsScreenView> {
   void initState() {
     super.initState();
     viewModel.getMovieDetails(widget.movieId);
+    viewModel.getMoreLikeMovies(widget.movieId);
   }
 
   @override
@@ -83,9 +84,8 @@ class _DetailsScreenViewState extends State<DetailsScreenView> {
                       height: height * 0.009,
                     ),
                     MovieUpperContent(
-                      movieDetails: viewModel.movieDetails!,
-                      movieId:widget.movieId
-                    ),
+                        movieDetails: viewModel.movieDetails!,
+                        movieId: widget.movieId),
                     Container(
                       color: const Color(0xff282A28),
                       margin: EdgeInsets.only(
@@ -102,23 +102,24 @@ class _DetailsScreenViewState extends State<DetailsScreenView> {
                             "More like this",
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
-                          SizedBox(
+
+                          viewModel.likeMovies != null ? SizedBox(
                             height: height * 0.278,
                             child: ListView.separated(
                               separatorBuilder: (context, index) => SizedBox(
                                 width: width * 0.04,
                               ),
-                              itemCount: 5,
+                              itemCount: viewModel.likeMovies!.results!.length,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (context, index) {
                                 return BottomCartDetailsScreen(
-                                  movieDetails: viewModel.movieDetails!,
+                                  movieDetails: viewModel.likeMovies!.results![index],
                                 );
                               },
                             ),
-                          ),
+                          ):Container(),
                         ],
                       ),
                     )

@@ -8,7 +8,6 @@ import '../../constants/color.dart';
 class Movie_content extends StatefulWidget {
   bool selectedToWatchList;
   movieDetailsModel movieDetails;
-
   int movieId;
 
   Movie_content({
@@ -41,7 +40,6 @@ class _Movie_contentState extends State<Movie_content> {
         Expanded(
           flex: 1,
           child: BookMarkImage(
-            // selectedToWatchList: false,
             imageHeight: height * 0.23,
             imagewidth: width * 0.34,
             imagepath: widget.movieDetails.posterPath!,

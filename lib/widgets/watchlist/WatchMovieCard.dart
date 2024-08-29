@@ -22,8 +22,8 @@ class WatchMovieCard extends StatelessWidget {
             child: Image.network(
               'https://image.tmdb.org/t/p/w500${movie.posterPath}',
               fit: BoxFit.fill,
-              width: width  * 0.325,
-              height: height  * 0.11,
+              width: width  * 0.3,
+              height: double.infinity,
             ),
           ),
           SizedBox(width: width * 0.02),

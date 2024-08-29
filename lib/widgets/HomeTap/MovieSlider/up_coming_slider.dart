@@ -4,18 +4,11 @@ import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
-
-import '../../../screens/WatchListTap/firebase/firebase.dart';
-
+import '../../../data/watchLater/firebase/firebase.dart';
 
 class UpComingSlider extends StatefulWidget {
   final String label;
   final List<Movie> listMovies;
-
-class UpComingSlider extends StatefulWidget {
-  String label;
-  List<Movie> listMovies;
-
 
   UpComingSlider({
     super.key,
@@ -28,11 +21,7 @@ class UpComingSlider extends StatefulWidget {
 }
 
 class _UpComingSliderState extends State<UpComingSlider> {
-
   final Set<int> selectedIndices = {};
-
-  final Set<int> _selectedIndices = {};
-
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +52,12 @@ class _UpComingSliderState extends State<UpComingSlider> {
                       physics: const BouncingScrollPhysics(),
                       itemCount: widget.listMovies.length,
                       itemBuilder: (context, index) {
-
                         final isSelected = selectedIndices.contains(index);
 
-                        final isSelected = _selectedIndices.contains(index);
-
-
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(width*0.021),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(width*0.015),
                             child: SizedBox(
                               child: Stack(
                                 children: [
@@ -82,18 +67,11 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DetailsScreenView(
-
-                                                movieId:
-                                                widget.listMovies[index].id,
-                                                movieTitle:
-                                                widget.listMovies[index].title,
-                                              ),
                                             movieId:
                                                 widget.listMovies[index].id,
                                             movieTitle:
                                                 widget.listMovies[index].title,
                                           ),
-
                                         ),
                                       );
                                     },
@@ -116,62 +94,6 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                     child: IconButton(
                                       icon: isSelected
                                           ? Stack(
-
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/bookmark.png",
-                                            color: AppColors.goldColor,
-                                            fit: BoxFit.cover,
-                                            width: width * 0.069,
-                                            height: height * 0.05,
-                                          ),
-                                          Positioned(
-                                            top: width * 0.011,
-                                            left: width * 0.009,
-                                            child: Icon(
-                                              Icons.check,
-                                              color: AppColors.whiteColor,
-                                              size: width * 0.055,
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                          : Stack(
-                                        children: [
-                                          Positioned(
-                                            left: 1,
-                                            bottom: -1,
-                                            child: Icon(
-                                              Icons.bookmark,
-                                              color:
-                                              AppColors.bookMarkColor,
-                                              size: width * 0.127,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      onPressed: () async {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedIndices.remove(index);
-                                            deleteMovieFromWatchList(
-                                                widget.listMovies[index].title);
-                                          } else {
-                                            selectedIndices.add(index);
-                                            addMovieToWatchList(
-                                                widget.listMovies[index]);
-                                          }
-                                        });
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(isSelected
-                                                ? "Movie removed from watchlist"
-                                                : "Movie added to watchlist"),
-                                          ),
-                                        );
-
                                               children: [
                                                 Image.asset(
                                                   "assets/images/bookmark.png",
@@ -181,14 +103,14 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                                   height: height * 0.05,
                                                 ),
                                                 Positioned(
-                                                  top: width*0.011,
-                                                  left: width*0.009,
+                                                  top: width * 0.011,
+                                                  left: width * 0.009,
                                                   child: Icon(
                                                     Icons.check,
                                                     color: AppColors.whiteColor,
                                                     size: width * 0.055,
                                                   ),
-                                                )
+                                                ),
                                               ],
                                             )
                                           : Stack(
@@ -204,25 +126,38 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                                   ),
                                                 ),
                                                 Positioned(
-                                                  top: width * 0.018,
-                                                  left: width * 0.038,
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    color: AppColors.whiteColor,
-                                                    size: width * 0.055,
-                                                  ),
-                                                )
+                                                    top: width * 0.02,
+                                                    left: width * 0.038,
+                                                    child: const Icon(
+                                                      Icons.add,
+                                                      size: 20,
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                    )),
                                               ],
                                             ),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         setState(() {
                                           if (isSelected) {
-                                            _selectedIndices.remove(index);
+                                            selectedIndices.remove(index);
+                                            deleteMovieFromWatchList(
+                                                widget.listMovies[index].title);
                                           } else {
-                                            _selectedIndices.add(index);
+                                            selectedIndices.add(index);
+                                            addMovieToWatchList(
+                                              widget.listMovies[index],
+                                            );
                                           }
                                         });
 
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(isSelected
+                                                ? "Movie removed from watchlist"
+                                                : "Movie added to watchlist"),
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),
