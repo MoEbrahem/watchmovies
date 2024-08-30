@@ -71,10 +71,12 @@ class SearchTap extends StatelessWidget {
                       return MovieCard(movie: movie);
                     },
                     onSuggestionSelected: (Movie movie) {
-                      Navigator.of(context).push(
+                      Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => DetailsScreenView(
-                              movieId: movie.id, movieTitle: movie.title),
+                            movieId: movie.id,
+                            movieTitle: movie.title,
+                          ),
                         ),
                       );
                       // showDialog(

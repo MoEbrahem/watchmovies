@@ -26,9 +26,8 @@ class _UpComingSliderState extends State<UpComingSlider> {
   @override
   void initState() {
     super.initState();
-    _checkMoviesInWatchList();
+    _loadInitialData();
   }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -58,7 +57,8 @@ class _UpComingSliderState extends State<UpComingSlider> {
                       physics: const BouncingScrollPhysics(),
                       itemCount: widget.listMovies.length,
                       itemBuilder: (context, index) {
-                        final isSelected = selectedIndices.contains(index);
+                      final movie = widget.listMovies[index];
+                      final isSelected = selectedIndices.contains(movie.id);
 
                         return Padding(
                           padding: EdgeInsets.all(width*0.021),
@@ -69,10 +69,11 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Navigator.of(context).push(
+                                      Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               DetailsScreenView(
+                                                isSelected: isSelected,
                                             movieId:
                                                 widget.listMovies[index].id,
                                             movieTitle:
@@ -143,27 +144,27 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                               ],
                                             ),
                                       onPressed: () async {
-                                        setState(() {
-                                          if (isSelected) {
-                                            selectedIndices.remove(index);
-                                            deleteMovieFromWatchList(
-                                                widget.listMovies[index].title);
-                                          } else {
-                                            selectedIndices.add(index);
-                                            addMovieToWatchList(
-                                              widget.listMovies[index],
-                                            );
-                                          }
-                                        });
-
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(isSelected
-                                                ? "Movie removed from watchlist"
-                                                : "Movie added to watchlist"),
-                                          ),
-                                        );
+                                        // setState(() {
+                                        //   if (isSelected) {
+                                        //     selectedIndices.remove(index);
+                                        //     deleteMovieFromWatchList(
+                                        //         widget.listMovies[index].title);
+                                        //   } else {
+                                        //     selectedIndices.add(index);
+                                        //     addMovieToWatchList(
+                                        //       widget.listMovies[index],
+                                        //     );
+                                        //   }
+                                        // });
+                                        _toggleWatchlist(index, movie);      
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(
+                                        //   SnackBar(
+                                        //     content: Text(isSelected
+                                        //         ? "Movie removed from watchlist"
+                                        //         : "Movie added to watchlist"),
+                                        //   ),
+                                        // );
                                       },
                                     ),
                                   ),
@@ -184,15 +185,38 @@ class _UpComingSliderState extends State<UpComingSlider> {
     );
   }
 
-  Future<void> _checkMoviesInWatchList() async {
+  Future<void> _loadInitialData() async {
     for (int index = 0; index < widget.listMovies.length; index++) {
       bool isInWatchlist =
           await isMovieInWatchList(widget.listMovies[index].title);
       if (isInWatchlist) {
         setState(() {
-          selectedIndices.add(index);
+          selectedIndices.add(widget.listMovies[index].id);
         });
       }
     }
+  }
+    Future<void> _toggleWatchlist(int index, Movie movie) async {
+    final isSelected = selectedIndices.contains(movie.id);
+
+    setState(() {
+      if (isSelected) {
+        selectedIndices.remove(movie.id);
+        deleteMovieFromWatchList(movie.title);
+      } else {
+        selectedIndices.add(movie.id);
+        addMovieToWatchList(movie);
+      }
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          isSelected
+              ? '${movie.title} removed from watchlist'
+              : '${movie.title} added to watchlist',
+        ),
+      ),
+    );
   }
 }

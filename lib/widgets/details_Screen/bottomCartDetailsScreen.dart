@@ -3,13 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/Models/detailsScreen/LikeMoviesModel.dart';
+import 'package:movies_app/data/Models/detailsScreen/MovieDetails.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 import 'package:movies_app/widgets/details_Screen/imageWithBookMark.dart';
 
 class BottomCartDetailsScreen extends StatelessWidget {
   Results movieDetails;
+  movieDetailsModel movie;
   BottomCartDetailsScreen({
     super.key,
+    required this.movie,
     required this.movieDetails,
   });
 
@@ -20,10 +23,12 @@ class BottomCartDetailsScreen extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context).pushReplacement(
           MaterialPageRoute(
             builder: (context) => DetailsScreenView(
-                movieId: movieDetails.id!, movieTitle: movieDetails.title!),
+                isSelected: false,
+                movieId: movieDetails.id!,
+                movieTitle: movieDetails.title!),
           ),
         );
       },
@@ -36,7 +41,10 @@ class BottomCartDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             BookMarkImage(
-              imagepath: movieDetails.posterPath??'',
+              movie: movie,
+              title: movieDetails.title!,
+              isSelected: false,
+              imagepath: movieDetails.posterPath ?? '',
               // selectedToWatchList: false,
               imageHeight: height * 0.16,
               imagewidth: double.infinity,

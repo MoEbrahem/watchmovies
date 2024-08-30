@@ -19,10 +19,11 @@ class ItemCategoryDetails extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => DetailsScreenView(
+              isSelected: false,
               movieTitle: itemResult.title!,
               movieId: itemResult.id!
             ),
