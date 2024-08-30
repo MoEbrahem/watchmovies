@@ -18,6 +18,7 @@ class Movie {
     required this.posterPath,
     required this.releaseDate,
     required this.voteAverage,
+  
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
@@ -33,4 +34,3 @@ class Movie {
     );
   }
 }
-

@@ -31,8 +31,7 @@ class _MovieUpperContentState extends State<MovieUpperContent> {
             style: Theme.of(context).textTheme.labelLarge,
           ),
           Text(
-            widget.movieDetails.voteAverage!
-                          .toStringAsFixed(1),
+            widget.movieDetails.releaseDate!,
             style: Theme.of(context)
                 .textTheme
                 .bodySmall

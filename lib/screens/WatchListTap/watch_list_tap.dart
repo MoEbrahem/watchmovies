@@ -1,19 +1,25 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../constants/color.dart';
 import '../../data/Models/home_tap_api.dart';
 import '../../widgets/watchlist/WatchMovieCard.dart';
-import 'firebase/firebase.dart';
+import '../../data/watchLater/firebase/firebase.dart';
 
 class WatchListTap extends StatefulWidget {
   @override
-  _WatchListTapState createState() => _WatchListTapState();
+  State<WatchListTap> createState() => _WatchListTapState();
 }
 
 class _WatchListTapState extends State<WatchListTap> {
+  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(      
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -26,11 +32,11 @@ class _WatchListTapState extends State<WatchListTap> {
         stream: getMoviesFromWatchList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.red)));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No movies found.', style: TextStyle(color: AppColors.whiteColor)));
+            return const Center(child: Text('No movies found.', style: TextStyle(color: AppColors.whiteColor)));
           } else {
             final movies = snapshot.data!;
 
@@ -72,6 +78,6 @@ class _WatchListTapState extends State<WatchListTap> {
           }
         },
       ),
-    );
+    );	   
+  }	  
   }
-}

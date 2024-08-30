@@ -1,6 +1,7 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';

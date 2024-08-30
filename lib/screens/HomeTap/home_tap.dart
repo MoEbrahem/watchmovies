@@ -28,13 +28,12 @@ class HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
-    double height =MediaQuery.of(context).size.height;
-    double width =MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-
       backgroundColor: AppColors.primaryColor,
       body: Padding(
-        padding: EdgeInsets.all(width*0.01),
+        padding: EdgeInsets.all(width * 0.01),
         child: ListView(
           children: [
             Column(
@@ -68,11 +67,13 @@ class HomeTabState extends State<HomeTab> {
                           label: "New Release",
                         );
                       } else {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                     }),
                 SizedBox(
-                  height: height*0.02,
+                  height: height * 0.02,
                 ),
                 FutureBuilder(
                   future: topRatedMovies,
@@ -98,35 +99,3 @@ class HomeTabState extends State<HomeTab> {
   }
 }
 
-
-// Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: SingleChildScrollView(
-//           physics: const BouncingScrollPhysics(),
-//           child: Column(
-//             children: [
-//               popularSlider(
-//                 image: "assets/images/van.png",
-//                 nameMovie: "Dora and the Lost City of Gold",
-//                 releaseTime: "2019  PG-13  2h 7m",
-//               ),
-//               const SizedBox(
-//                 height: 10,
-//               ),
-//               upComingSlider(
-//                 label: "New Release",
-//                 image: "assets/images/van.png",
-//               ),
-//               const SizedBox(
-//                 height: 10,
-//               ),
-//               TopRatedSlider(
-//                 label: "Recommended",
-//                 image: "assets/images/van.png",
-//                 rated: "7.7",
-//                 movieName: "Van Gogh",
-//                 realse: "Time",
-//               )
-//             ],
-//           ),
-//         ),

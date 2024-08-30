@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
+import 'package:movies_app/data/watchLater/firebase/firebase.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
-import '../../../screens/WatchListTap/firebase/firebase.dart';
 
 class TopRatedSlider extends StatefulWidget {
   final String label;
@@ -49,7 +49,9 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: height * 0.042),
+                  padding: EdgeInsets.only(
+                    top: height * 0.042,
+                  ),
                   child: ListView.separated(
                     separatorBuilder: (context, index) => SizedBox(
                       width: width * 0.05,
@@ -66,7 +68,7 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                         width: width * 0.34,
                         decoration: BoxDecoration(
                           color: AppColors.recommendedContainer,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(width*0.04),
                         ),
                         child: InkWell(
                           onTap: () {
@@ -105,27 +107,51 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                                         left: -18,
                                         child: IconButton(
                                           icon: isSelected
-                                              ? Image.asset(
-                                            "assets/images/bookmark.png",
-                                            color: AppColors.goldColor,
-                                            fit: BoxFit.cover,
-                                            width: 28,
-                                            height: 35,
-                                          )
+                                              ? Stack(
+                                                  children: [
+                                                    Image.asset(
+                                                      "assets/images/bookmark.png",
+                                                      color:
+                                                          AppColors.goldColor,
+                                                      fit: BoxFit.cover,
+                                                      width: width * 0.08,
+                                                      height: width * 0.1,
+                                                    ),
+                                                    Positioned(
+                                                      top: width * 0.011,
+                                                      left: width * 0.013,
+                                                      child: Icon(
+                                                        Icons.check,
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                        size: width * 0.055,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
                                               : Stack(
-                                            children: [
-                                              Positioned(
-                                                left: 0,
-                                                bottom: -5,
-                                                child: Icon(
-                                                  Icons.bookmark,
-                                                  color: AppColors
-                                                      .bookMarkColor,
-                                                  size: width * 0.127,
+                                                  children: [
+                                                    Positioned(
+                                                      left: 0,
+                                                      bottom: -5,
+                                                      child: Icon(
+                                                        Icons.bookmark,
+                                                        color: AppColors
+                                                            .bookMarkColor,
+                                                        size: width * 0.127,
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                        top: width * 0.014,
+                                                        left: width * 0.035,
+                                                        child: const Icon(
+                                                          Icons.add,
+                                                          size: 20,
+                                                          color: AppColors
+                                                              .whiteColor,
+                                                        )),
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
-                                          ),
                                           onPressed: () {
                                             _toggleWatchlist(index, movie);
                                           },
@@ -140,21 +166,23 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                                 child: Container(
                                   padding: EdgeInsets.only(left: width * 0.02),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
                                           Image.asset("assets/images/star.png"),
                                           SizedBox(width: width * 0.005),
                                           Text(
-                                            movie.voteAverage.toStringAsFixed(1),
+                                            movie.voteAverage
+                                                .toStringAsFixed(1),
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .titleMedium
                                                 ?.copyWith(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w100,
-                                            ),
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w100,
+                                                ),
                                           ),
                                         ],
                                       ),
@@ -166,8 +194,8 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                                             .textTheme
                                             .titleSmall
                                             ?.copyWith(
-                                          color: AppColors.whiteColor,
-                                        ),
+                                              color: AppColors.whiteColor,
+                                            ),
                                       ),
                                       Text(
                                         movie.releaseDate,

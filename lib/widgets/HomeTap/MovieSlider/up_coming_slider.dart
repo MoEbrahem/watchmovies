@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
+import 'package:movies_app/data/watchLater/firebase/firebase.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
-import '../../../screens/WatchListTap/firebase/firebase.dart';
 
 class UpComingSlider extends StatefulWidget {
   final String label;
@@ -61,9 +61,9 @@ class _UpComingSliderState extends State<UpComingSlider> {
                         final isSelected = selectedIndices.contains(index);
 
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(width*0.021),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
+                            borderRadius: BorderRadius.circular(width*0.015),
                             child: SizedBox(
                               child: Stack(
                                 children: [
@@ -100,39 +100,48 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                     child: IconButton(
                                       icon: isSelected
                                           ? Stack(
-                                        children: [
-                                          Image.asset(
-                                            "assets/images/bookmark.png",
-                                            color: AppColors.goldColor,
-                                            fit: BoxFit.cover,
-                                            width: width * 0.069,
-                                            height: height * 0.05,
-                                          ),
-                                          Positioned(
-                                            top: width * 0.011,
-                                            left: width * 0.009,
-                                            child: Icon(
-                                              Icons.check,
-                                              color: AppColors.whiteColor,
-                                              size: width * 0.055,
-                                            ),
-                                          ),
-                                        ],
-                                      )
+                                              children: [
+                                                Image.asset(
+                                                  "assets/images/bookmark.png",
+                                                  color: AppColors.goldColor,
+                                                  fit: BoxFit.cover,
+                                                  width: width * 0.069,
+                                                  height: height * 0.05,
+                                                ),
+                                                Positioned(
+                                                  top: width * 0.011,
+                                                  left: width * 0.009,
+                                                  child: Icon(
+                                                    Icons.check,
+                                                    color: AppColors.whiteColor,
+                                                    size: width * 0.055,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
                                           : Stack(
-                                        children: [
-                                          Positioned(
-                                            left: 1,
-                                            bottom: -1,
-                                            child: Icon(
-                                              Icons.bookmark,
+                                              children: [
+                                                Positioned(
+                                                  left: 1,
+                                                  bottom: -1,
+                                                  child: Icon(
+                                                    Icons.bookmark,
                                                     color:
                                                         AppColors.bookMarkColor,
                                                     size: width * 0.127,
+                                                  ),
+                                                ),
+                                                Positioned(
+                                                    top: width * 0.02,
+                                                    left: width * 0.038,
+                                                    child: const Icon(
+                                                      Icons.add,
+                                                      size: 20,
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                    )),
+                                              ],
                                             ),
-                                          ),
-                                        ],
-                                      ),
                                       onPressed: () async {
                                         setState(() {
                                           if (isSelected) {
@@ -142,7 +151,8 @@ class _UpComingSliderState extends State<UpComingSlider> {
                                           } else {
                                             selectedIndices.add(index);
                                             addMovieToWatchList(
-                                                widget.listMovies[index]);
+                                              widget.listMovies[index],
+                                            );
                                           }
                                         });
 
