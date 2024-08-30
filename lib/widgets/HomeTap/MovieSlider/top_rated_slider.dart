@@ -72,9 +72,10 @@ class _TopRatedSliderState extends State<TopRatedSlider> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
+                            Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                 builder: (context) => DetailsScreenView(
+                                  isSelected : isSelected,
                                   movieId: movie.id,
                                   movieTitle: movie.title,
                                 ),

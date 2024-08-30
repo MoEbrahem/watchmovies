@@ -6,13 +6,14 @@ import 'package:movies_app/widgets/details_Screen/imageWithBookMark.dart';
 import '../../constants/color.dart';
 
 class Movie_content extends StatefulWidget {
-  bool selectedToWatchList;
+  bool isSelected;
   movieDetailsModel movieDetails;
+  
   int movieId;
 
   Movie_content({
     super.key,
-    required this.selectedToWatchList,
+    required this.isSelected,
     required this.movieDetails,
     required this.movieId,
   });
@@ -40,6 +41,9 @@ class _Movie_contentState extends State<Movie_content> {
         Expanded(
           flex: 1,
           child: BookMarkImage(
+            movie: widget.movieDetails,
+            title: widget.movieDetails.title!,
+            isSelected: widget.isSelected,
             imageHeight: height * 0.23,
             imagewidth: width * 0.34,
             imagepath: widget.movieDetails.posterPath!,

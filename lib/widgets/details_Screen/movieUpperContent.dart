@@ -5,9 +5,11 @@ import 'package:movies_app/widgets/details_Screen/movie_content.dart';
 
 class MovieUpperContent extends StatefulWidget {
   movieDetailsModel movieDetails;
+  bool isSelected;
   int? movieId;
   MovieUpperContent({
     super.key,
+    required this.isSelected,
     required this.movieDetails,
     required this.movieId,
   });
@@ -41,8 +43,8 @@ class _MovieUpperContentState extends State<MovieUpperContent> {
             height: height * 0.02,
           ),
           Movie_content(
+            isSelected:widget.isSelected,
             movieDetails: widget.movieDetails,
-            selectedToWatchList: false,
             movieId: widget.movieId!,
           ),
         ],

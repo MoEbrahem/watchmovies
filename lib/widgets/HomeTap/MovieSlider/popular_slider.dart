@@ -7,8 +7,8 @@ import 'package:movies_app/data/Models/home_tap_api.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
 class PopularSlider extends StatelessWidget {
-  PopularSlider({super.key, required this.listMovies});
-
+  PopularSlider({super.key, required this.listMovies,required this.isSelected});
+  bool isSelected;
   List<Movie> listMovies;
 
   @override
@@ -30,9 +30,10 @@ class PopularSlider extends StatelessWidget {
         itemBuilder: (context, index, pageView) {
           return InkWell(
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => DetailsScreenView(
+                    isSelected: isSelected,
                     movieId: listMovies[index].id,
                     movieTitle: listMovies[index].title,
                   ),
@@ -45,10 +46,10 @@ class PopularSlider extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Image.network(
-                        filterQuality: FilterQuality.high,
-                        "${ApiConstants.imagePath}${listMovies[index].backDropPath}",
-                        fit: BoxFit.cover,
-                        ),
+                      filterQuality: FilterQuality.high,
+                      "${ApiConstants.imagePath}${listMovies[index].backDropPath}",
+                      fit: BoxFit.cover,
+                    ),
                   ],
                 ),
 

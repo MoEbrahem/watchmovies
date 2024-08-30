@@ -45,6 +45,7 @@ class HomeTabState extends State<HomeTab> {
                         return Center(child: Text(snapshot.error.toString()));
                       } else if (snapshot.hasData) {
                         return PopularSlider(
+                          isSelected: false,
                           listMovies: snapshot.data!,
                         );
                       } else {
