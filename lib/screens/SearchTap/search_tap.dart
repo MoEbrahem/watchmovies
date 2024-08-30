@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:movies_app/constants/color.dart';
-import 'package:movies_app/data/Models/models/movie.dart';
+import 'package:movies_app/data/Models/searchModel/movie.dart';
 import 'package:movies_app/data/searchTap/api_service.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
+
 import '../../widgets/SearchTab/SearchMovieCard.dart';
 
 class SearchTap extends StatelessWidget {

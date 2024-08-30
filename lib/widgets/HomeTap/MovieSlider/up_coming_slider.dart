@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/HomeTapAPI/api/ApiConstants.dart';
 import 'package:movies_app/data/Models/home_tap_api.dart';
+import 'package:movies_app/data/watchLater/firebase/firebase.dart';
 import 'package:movies_app/widgets/details_Screen/details_Screen_View.dart';
 
-import '../../../data/watchLater/firebase/firebase.dart';
 
 class UpComingSlider extends StatefulWidget {
   final String label;
@@ -22,6 +22,12 @@ class UpComingSlider extends StatefulWidget {
 
 class _UpComingSliderState extends State<UpComingSlider> {
   final Set<int> selectedIndices = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _checkMoviesInWatchList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,5 +182,17 @@ class _UpComingSliderState extends State<UpComingSlider> {
         ),
       ],
     );
+  }
+
+  Future<void> _checkMoviesInWatchList() async {
+    for (int index = 0; index < widget.listMovies.length; index++) {
+      bool isInWatchlist =
+          await isMovieInWatchList(widget.listMovies[index].title);
+      if (isInWatchlist) {
+        setState(() {
+          selectedIndices.add(index);
+        });
+      }
+    }
   }
 }

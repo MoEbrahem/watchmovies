@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../Models/home_tap_api.dart';
+
+import '../../../data/Models/home_tap_api.dart';
 
 Future<void> addMovieToWatchList(Movie movie) async {
   try {
@@ -48,4 +49,14 @@ Stream<List<Movie>> getMoviesFromWatchList() {
       );
     }).toList();
   });
+}
+
+Future<bool> isMovieInWatchList(String title) async {
+  try {
+    var collection = FirebaseFirestore.instance.collection('watchlist');
+    var snapshot = await collection.where('title', isEqualTo: title).get();
+    return snapshot.docs.isNotEmpty;
+  } catch (e) {
+    throw Exception('Failed to check movie in watchlist: $e');
+  }
 }
