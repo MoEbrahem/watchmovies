@@ -124,9 +124,10 @@ class _DetailsScreenViewState extends State<DetailsScreenView> {
                         height: height * 0.009,
                       ),
                       MovieUpperContent(
-                          isSelected: widget.isSelected,
-                          movieDetails: viewModel.movieDetails!,
-                          movieId: widget.movieId),
+                        isSelected: widget.isSelected,
+                        movieDetails: viewModel.movieDetails!,
+                        movieId: widget.movieId,
+                      ),
                       Container(
                         color: const Color(0xff282A28),
                         margin: EdgeInsets.only(

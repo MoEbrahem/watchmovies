@@ -5,6 +5,7 @@ import '../../../data/Models/home_tap_api.dart';
 Future<void> addMovieToWatchList(Movie movie) async {
   try {
     await FirebaseFirestore.instance.collection('watchlist').add({
+      'id': movie.id,
       'title': movie.title,
       'backDropPath': movie.backDropPath,
       'originalTitle': movie.originalTitle,
@@ -38,7 +39,7 @@ Stream<List<Movie>> getMoviesFromWatchList() {
     return snapshot.docs.map((doc) {
       final data = doc.data();
       return Movie(
-        id: int.tryParse(doc.id) ?? 0,
+        id: data['id'] ?? 0,
         title: data['title'] ?? '',
         backDropPath: data['backDropPath'] ?? '',
         originalTitle: data['originalTitle'] ?? '',

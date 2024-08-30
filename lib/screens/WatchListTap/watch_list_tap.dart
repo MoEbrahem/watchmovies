@@ -34,7 +34,7 @@ class _WatchListTapState extends State<WatchListTap> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}', style: TextStyle(color: Colors.red)));
+            return Center(child: Text('Error: ${snapshot.error}', style:const TextStyle(color: Colors.red)));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text('No movies found.', style: TextStyle(color: AppColors.whiteColor)));
           } else {
@@ -58,7 +58,7 @@ class _WatchListTapState extends State<WatchListTap> {
                         foregroundColor: AppColors.goldColor,
                         icon: Icons.delete,
                         label: 'Delete',
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topRight: Radius.circular(5),
                           bottomRight: Radius.circular(5),
                         ),
@@ -67,10 +67,12 @@ class _WatchListTapState extends State<WatchListTap> {
                   ),
                   child: Container(
                     margin: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width * 0.05,
-                      vertical: MediaQuery.of(context).size.height * 0.01,
+                      horizontal: width * 0.05,
+                      vertical: height * 0.01,
                     ),
-                    child: WatchMovieCard(movie: movies[index]),
+                    child: WatchMovieCard(
+                      movie: movies[index],
+                      ),
                   ),
                 );
               },
