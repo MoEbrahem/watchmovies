@@ -1,7 +1,8 @@
+
 import 'package:flutter/material.dart';
 
 class TopVideoTrailer extends StatelessWidget {
-  String imagePath;
+  String? imagePath;
 
   TopVideoTrailer({
     super.key,
@@ -14,8 +15,8 @@ class TopVideoTrailer extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        Image.network(
-          imagePath,
+         Image.network(
+          '$imagePath',
           fit: BoxFit.fill,
           width: double.infinity,
           height: height * 0.29,

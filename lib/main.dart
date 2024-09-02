@@ -14,7 +14,7 @@ void main() async {
           apiKey: "AIzaSyAWPigFUSbiGIoLnDx0NwUfKIUJgXc9Mt4",
           appId: "com.example.movies_app",
           messagingSenderId: "205860268141",
-          projectId: "movies-app-2a577"))
+          projectId: "movies-app-2a577"),)
       : await Firebase.initializeApp();
   await FirebaseFirestore.instance.disableNetwork();
   runApp(MyApp());

@@ -31,12 +31,13 @@ class _BookMarkImageState extends State<BookMarkImage> {
     double width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
-        widget.imagepath == ''
+        widget.imagepath == '' || widget.imagepath == null
             ? Image.network(
                 'https://kennyleeholmes.com/wp-content/uploads/2017/09/no-image-available.png',
                 fit: BoxFit.fill,
                 width: double.infinity,
-                height: width * 0.32,
+                height: widget.imageHeight,
+                // width * 0.32,
               )
             : Image.network(
                 'https://image.tmdb.org/t/p/w500${widget.imagepath}',
@@ -56,8 +57,8 @@ class _BookMarkImageState extends State<BookMarkImage> {
                     id: widget.movie.id!,
                     title: widget.movie.title!,
                     overView: widget.movie.overview!,
-                    posterPath: widget.movie.posterPath!,
-                    backDropPath: widget.movie.backdropPath!,
+                    posterPath: widget.movie.posterPath ??'',
+                    backDropPath: widget.movie.backdropPath ?? 'https://live.staticflickr.com/1485/25723988843_721a52d92f_b.jpg',
                     originalTitle: widget.movie.originalTitle!,
                     releaseDate: widget.movie.releaseDate!,
                     voteAverage: widget.movie.voteAverage!,

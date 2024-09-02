@@ -46,7 +46,7 @@ class _Movie_contentState extends State<Movie_content> {
             isSelected: widget.isSelected,
             imageHeight: height * 0.23,
             imagewidth: width * 0.34,
-            imagepath: widget.movieDetails.posterPath!,
+            imagepath: widget.movieDetails.posterPath ?? '',
           ),
         ),
         SizedBox(

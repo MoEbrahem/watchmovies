@@ -4,8 +4,9 @@ import '../../data/Models/home_tap_api.dart';
 
 class WatchMovieCard extends StatelessWidget {
   final Movie movie;
+  String? posterpath;
 
-  const WatchMovieCard({required this.movie});
+  WatchMovieCard({required this.movie,required this.posterpath});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +33,20 @@ class WatchMovieCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: Image.network(
-                'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                fit: BoxFit.fill,
-                width: width * 0.3,
-                height: double.infinity,
-              ),
+              child: posterpath == null || posterpath == ''
+                  ? Image.network(
+                      'https://kennyleeholmes.com/wp-content/uploads/2017/09/no-image-available.png',
+                      fit: BoxFit.fill,
+                      width: width * 0.3,
+                      height: double.infinity,
+                      // width * 0.32,
+                    )
+                  : Image.network(
+                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                      fit: BoxFit.fill,
+                      height: double.infinity,
+                      width: width * 0.3,
+                    ),
             ),
             SizedBox(width: width * 0.02),
             Expanded(

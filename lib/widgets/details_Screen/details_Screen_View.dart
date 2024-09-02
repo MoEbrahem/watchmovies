@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:movies_app/constants/color.dart';
-import 'package:movies_app/screens/HomeTap/home_tap.dart';
 import 'package:movies_app/screens/homeScreen.dart';
 import 'package:movies_app/viewModel/detailsScreen.dart';
 import 'package:movies_app/widgets/details_Screen/TopVideoTrailer.dart';
@@ -115,10 +114,14 @@ class _DetailsScreenViewState extends State<DetailsScreenView> {
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
+                    children: [ 
                       TopVideoTrailer(
                         imagePath:
-                            'https://image.tmdb.org/t/p/w500${viewModel.movieDetails!.backdropPath!}',
+                        viewModel.movieDetails?.backdropPath == null 
+                        || viewModel.movieDetails?.backdropPath == ''
+                        ? 'https://live.staticflickr.com/1485/25723988843_721a52d92f_b.jpg'
+                        :
+                            'https://image.tmdb.org/t/p/w500${viewModel.movieDetails?.backdropPath}',
                       ),
                       SizedBox(
                         height: height * 0.009,

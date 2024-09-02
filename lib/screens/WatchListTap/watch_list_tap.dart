@@ -72,6 +72,7 @@ class _WatchListTapState extends State<WatchListTap> {
                     ),
                     child: WatchMovieCard(
                       movie: movies[index],
+                      posterpath: movies[index].posterPath,
                       ),
                   ),
                 );

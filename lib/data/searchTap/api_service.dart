@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movies_app/constants/color.dart';
 import 'package:movies_app/data/Models/searchModel/api_watch.dart';
 import 'package:movies_app/data/Models/searchModel/movie.dart';
 
 Future<ApiWatch> addApiSettings() async {
-  const  apiKey = '62719ca1d744677169a0d4e9e0424a1f';
+  const apiKey = '62719ca1d744677169a0d4e9e0424a1f';
   const url = 'https://api.themoviedb.org/3/configuration?api_key=$apiKey';
 
   final response = await http.get(Uri.parse(url));
@@ -32,7 +34,7 @@ Future<List<Movie>> importMovieFromApi({String query = ''}) async {
     final data = json.decode(response.body);
     final List moviesData = data['results'];
     final baseUrl = settings.images?.secureBaseUrl ?? '';
-    final posterSize = 'w500';
+    const posterSize = 'w500';
 
     return moviesData
         .map<Movie>((json) => Movie.fromJson(json, baseUrl, posterSize))
@@ -42,6 +44,6 @@ Future<List<Movie>> importMovieFromApi({String query = ''}) async {
   }
 }
 
-void searchForMovies(String query) async {
-  final movies = await importMovieFromApi(query: query);
-}
+// void searchForMovies(String query) async {
+//   final movies = await importMovieFromApi(query: query);
+// }
